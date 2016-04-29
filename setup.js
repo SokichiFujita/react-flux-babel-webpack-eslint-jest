@@ -222,7 +222,6 @@ function setupReact() {
   createJSON('.babelrc', {"presets":["react", "es2015"]});
   
   createFile('./public/index.html', indexHTML);
-  createFile('./public/js/bundle.js', '');
   createFile('webpack.config.js', webpackConfig);
   createFile('./app/App.js', appJS);
   createFile('./app/components/Sample.js', componentSample);
