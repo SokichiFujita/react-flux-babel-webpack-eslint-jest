@@ -22,8 +22,8 @@ node setup.js
 
 ```
 npm start
-npm build
 npm test
 npm run lint
+npm run build
 ```
 
