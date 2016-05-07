@@ -29,8 +29,9 @@ A non-opinionated project generator for React and Flux.
 2. Generate a project and tests.
 
 ```
-node setup init               // Setup a new react project.
-node setup generate test      // Search your React components and generate test for the components.
+node setup init                           // Setup a new react project.
+node setup generate test                  // Search your React components and generate test for the components.
+node setup generate store [StoreName]     // Search your React components and generate test for the components.
 ```
 
 ## Supported npm commands
