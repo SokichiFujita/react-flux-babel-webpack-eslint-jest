@@ -1,6 +1,6 @@
 # react-flux-babel-webpack-eslint-jest
 
-An non-opinionated project generator for React and Flux.
+A non-opinionated project generator for React and Flux.
 
 - Keep the project clean. This generator doesn't leave own traces in the generated project.
 - Facebook's official React toolchains are adopted.
