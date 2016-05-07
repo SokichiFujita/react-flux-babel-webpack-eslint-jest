@@ -239,6 +239,14 @@ function main() {
         showUsage();
       }
       break;
+    case 5:
+      if (args[2] == 'generate' && args[3] == 'store') {
+        generateStoreFile(args[4]);
+        showComplete();
+      } else {
+        showUsage();
+      }
+      break;
     default:
       showUsage();
       break;
@@ -247,8 +255,9 @@ function main() {
 
 function showUsage() {
   console.log('Usage:');
-  console.log('node setup init            : Setup a react project.');
-  console.log('node setup generate test   : Generate test files.');
+  console.log('node setup init                        : Setup a react project.');
+  console.log('node setup generate test               : Generate tests from components');
+  console.log('node setup generate store [StoreName]  : Generate a store file.');
   process.exit(-1);
 }
 
@@ -307,6 +316,35 @@ describe('<${module} />', () => {
 `
   return testCode;
 }
+
+function generateStoreFile(name) {
+
+const code =
+`import { ReduceStore } from 'flux/utils';
+import AppDispatcher from '../dispatchers/AppDispatcher';
+
+class ${name} extends ReduceStore {
+  getInitialState() {
+    return [];
+  }
+
+  reduce(state, action) {
+    switch (action.type) {
+      case 'ACTION_TYPE_001':
+        return state;
+      default:
+        return state;
+    }
+  }
+}
+
+export default new ${name}(AppDispatcher);
+`;
+
+  createFile(`./app/stores/${name}.js`, code);
+}
+
+
 
 function getFileNames(dir) {
   if (fs.existsSync(dir)) { 
