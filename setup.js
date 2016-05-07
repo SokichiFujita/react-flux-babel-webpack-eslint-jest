@@ -1,8 +1,9 @@
-var util = require('util');
-var exec = require('child_process').execSync;
-var fs = require('fs');
+const util = require('util');
+const exec = require('child_process').execSync;
+const fs = require('fs');
+const path = require('path');
 
-var dirs = [
+const dirs = [
   //Flux
   './app',
   './app/actions',
@@ -20,7 +21,7 @@ var dirs = [
   './__tests__'
 ]
 
-var npms = [
+const npms = [
   //Babel
   'npm install --save-dev babel-cli',
   'npm install --save-dev babel-preset-es2015',
@@ -54,38 +55,38 @@ var npms = [
   'npm install --save-dev eslint-config-airbnb'
 ]
 
-var repository = {
-  'type':'git', 
-  'url':'https://example.com'
+const repository = {
+  "type":"git", 
+  "url":"https://example.com"
 };
 
-var jest = {
-  'unmockedModulePathPatterns': [
-    '<rootDir>/node_modules/react',
-    '<rootDir>/node_modules/react-dom',
-    '<rootDir>/node_modules/react-addons-test-utils'
+const jest = {
+  "unmockedModulePathPatterns": [
+    "<rootDir>/node_modules/react",
+    "<rootDir>/node_modules/react-dom",
+    "<rootDir>/node_modules/react-addons-test-utils"
   ]
 };
 
-var scripts = {
-  'start': 'webpack-dev-server -d --progress --colors',
-  'build': 'NODE_ENV=production node_modules/.bin/webpack -p --progress --colors',
-  'test': 'jest',
-  'lint': 'eslint app/**'
+const scripts = {
+  "start": "webpack-dev-server -d --progress --colors --display-error-details",
+  "build": "NODE_ENV=production node_modules/.bin/webpack -p --progress --colors",
+  "test": "jest",
+  "lint": "eslint app/**"
 };
 
-var eslint = {
+const eslint = {
     "extends": "airbnb",
     "plugins": [
         "react"
     ]
 }
 
-var webpackConfig = 
-`var webpack = require('webpack');
+const webpackConfig = 
+`const webpack = require('webpack');
 
-var config = {
-  devtool: 'inline-source-map',
+const config = {
+  devtool: "inline-source-map",
   entry:  __dirname + "/app/App.js",
   output: {
     path: __dirname + "/public",
@@ -95,9 +96,9 @@ var config = {
     loaders: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'babel',
+      loader: "babel",
       query: {
-        presets: ['es2015','react']
+        presets: ["es2015","react"]
       }
     }]
   },
@@ -122,7 +123,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = config;`;
 
-var indexHTML = 
+const indexHTML = 
 `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -137,7 +138,7 @@ var indexHTML =
   </body>
 </html>`;
 
-var appJS = 
+const appJS = 
 `import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Container } from 'flux/utils';
@@ -166,7 +167,7 @@ const AppContainer = Container.create(App);
 render(<AppContainer />, document.getElementById('root'));
 `;
 
-var componentSample =
+const componentSample =
 `import React from 'react';
 
 const Sample = (props) => (
@@ -183,7 +184,7 @@ Sample.propTypes = {
 export default Sample;
 `;
 
-var sampleTest =
+const sampleTest =
 `jest.unmock('../app/components/Sample');
 
 import React from 'react';
@@ -204,43 +205,114 @@ describe('<Sample />', () => {
 });
 `;
 
+main();
 
-setupReact();
+function main() {
+  console.log('*** React Project Generator ***');
+  const args = process.argv;
+  switch (args.length) {
+    case 3:
+      if (args[2] == 'init') {
+        setupReact();
+        showComplete();
+      } else {
+        showUsage();
+      }
+      break;
+    case 4:
+      if (args[2] == 'generate' && args[3] == 'test') {
+        generateComponentTestFiles();
+        showComplete();
+      } else {
+        showUsage();
+      }
+      break;
+    default:
+      showUsage();
+      break;
+  }
+}
+
+function showUsage() {
+  console.log('Usage:');
+  console.log('node setup init            : Setup a react project.');
+  console.log('node setup generate test   : Generate test files.');
+  process.exit(-1);
+}
+
+function showComplete() {
+  console.log('Completed!');
+}
 
 function setupReact() {
-
   createDirectories(dirs);
-  
   exec('npm init -y', puts);
-  
   fixJSON('package.json', 'description', 'React template.');
   fixJSON('package.json', 'repository', repository);
   fixJSON('package.json', 'jest', jest); 
   fixJSON('package.json', 'scripts', scripts); 
-  
   createJSON('.eslintrc', eslint);
   createJSON('.babelrc', {"presets":["react", "es2015"]});
-  
   createFile('./public/index.html', indexHTML);
+  createFile('./public/css/style.css', '');
   createFile('webpack.config.js', webpackConfig);
   createFile('./app/App.js', appJS);
   createFile('./app/components/Sample.js', componentSample);
   createFile('./__tests__/Sample-test.js', sampleTest);
-
   npmInstall(npms);
+}
+
+function generateComponentTestFiles() {
+  const basePath = './app/components/';
+  const components = getFileNames(basePath);
+  for (const i in components) {
+    const component = path.parse(components[i]).name;
+    const testFile = './__tests__/' + component + '-test.js';
+    createFile(testFile, generateComponentTestCode(component));
+  }
+}
+
+function generateComponentTestCode(module) {
+  const testCode = 
+`jest.unmock('../app/components/${module}');
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
+import ${module} from '../app/components/${module}'
+
+describe('<${module} />', () => {
+  it('', () => {
+    const renderer = TestUtils.createRenderer();
+    renderer.render(
+      <${module} />
+    );
+    const dom = renderer.getRenderOutput();
+    //expect(dom.props.//PROPS_NAME).toEqual('//TEXT');
+  });
+});
+`
+  return testCode;
+}
+
+function getFileNames(dir) {
+  if (fs.existsSync(dir)) { 
+    return fs.readdirSync(dir);
+  }
+  return [];
 }
 
 function createDirectories(dirs) {
   dirs.map(function(dir) {
     if (!fs.existsSync(dir)) { 
       fs.mkdirSync(dir); 
-      console.log("Create:", dir);
+      console.log('Create:', dir);
     }
   })
 }
 
 function npmInstall(npms) {
-  npms.map(function(command) {
+  npms.map(command => {
     console.log(command);
     exec(command, puts);
   });
