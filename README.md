@@ -2,6 +2,7 @@
 
 A non-opinionated project generator for React and Flux.
 
+- Provide well and simply configured React/Flux development environment.
 - Keep the project clean. This generator doesn't leave own traces in the generated project.
 - Facebook's official React toolchains are adopted.
 - Generate test scaffolds for Jest from your React components.
@@ -9,6 +10,11 @@ A non-opinionated project generator for React and Flux.
 ## React stack
 
 - [React](http://facebook.github.io/react/)
+  - React
+  - react-dom
+  - react-addons-test-utils
+  - react-addons-perf
+  - react-addons-css-transition-group
 - [Flux](https://facebook.github.io/flux/)
   - [flux/utils](https://facebook.github.io/flux/docs/flux-utils.html)
 - [Jest](https://facebook.github.io/jest/)
