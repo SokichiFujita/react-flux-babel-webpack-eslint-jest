@@ -179,6 +179,36 @@ class AppDispatcher extends Dispatcher {
 export default new AppDispatcher();
 `;
 
+const actionCreatorsJS =
+`import AppDispatcher from '../dispatchers/AppDispatcher';
+
+const ActionCreators = {
+
+  action001(arg1) {
+    //
+    // Do something and pass the result to the data in the dispatch.
+    //
+    AppDispatcher.dispatch({
+      type: 'ACTION_TYPE_001',
+      data: 'RESULT OF YOUT ACTION',
+    });
+  },
+
+  action002(arg1) {
+    AppDispatcher.dispatch({
+      type: 'ACTION_TYPE_002',
+      data: 'RESULT OF YOUT ACTION',
+    });
+  },
+
+};
+
+export default ActionCreators;
+`;
+
+  createFile(`./app/actions/ActionCreators.js`, code);
+
+
 const componentSample =
 `import React from 'react';
 
@@ -279,6 +309,7 @@ function setupReact() {
   createFile('webpack.config.js', webpackConfig);
   createFile('./app/App.js', appJS);
   createFile('./app/dispatchers/AppDispatcher.js', appDispatcherJS);
+  createFile('./app/actions/ActionCreators.js', actionCreatorsJS);
   createFile('./app/components/Sample.js', componentSample);
   createFile('./__tests__/Sample-test.js', sampleTest);
   npmInstall(npms);
@@ -343,8 +374,6 @@ export default new ${name}(AppDispatcher);
 
   createFile(`./app/stores/${name}.js`, code);
 }
-
-
 
 function getFileNames(dir) {
   if (fs.existsSync(dir)) { 
