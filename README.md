@@ -1,6 +1,6 @@
 # react-flux-babel-webpack-eslint-jest
 
-A project generator for React and Flux.
+An non-opinionated project generator for React and Flux.
 
 - Keep the project clean. This generator doesn't leave own traces in the generated project.
 - Facebook's official React toolchains are adopted.
@@ -65,7 +65,8 @@ npm run build                 // Build for production
 - Support for global npm command to make installation easier. (`npm install -g`)
 - Add more good toolchains. (e.g. Facebook's Immutable.js)
 - [Under review] Add 3rd-party libraries (e.g. Material-UI, React-router)
-- Refactoring
+- Add tests for the generator.
+- Refactoring.
 
 ## License
 
