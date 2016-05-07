@@ -167,6 +167,18 @@ const AppContainer = Container.create(App);
 render(<AppContainer />, document.getElementById('root'));
 `;
 
+const appDispatcherJS = 
+`import { Dispatcher } from 'flux';
+
+class AppDispatcher extends Dispatcher {
+  dispatch(action = {}) {
+    super.dispatch(action);
+  }
+}
+
+export default new AppDispatcher();
+`;
+
 const componentSample =
 `import React from 'react';
 
@@ -257,6 +269,7 @@ function setupReact() {
   createFile('./public/css/style.css', '');
   createFile('webpack.config.js', webpackConfig);
   createFile('./app/App.js', appJS);
+  createFile('./app/dispatchers/AppDispatcher.js', appDispatcherJS);
   createFile('./app/components/Sample.js', componentSample);
   createFile('./__tests__/Sample-test.js', sampleTest);
   npmInstall(npms);
