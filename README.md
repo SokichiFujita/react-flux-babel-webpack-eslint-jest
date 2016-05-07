@@ -2,15 +2,16 @@
 
 A non-opinionated project generator for React and Flux.
 
-- Setup well and simply configured React/Flux development environment.
+- Setup a well and simply configured React/Flux development environment.
 - Facebook's official React toolchains are adopted.
 - Generate test scaffolds for Jest from your React components.
 - Generate scaffolds for Flux 
   - Dispatcher
-  - Action (Action Creator)
-  - Store (ReduceStore of Flux)
+  - Action Creator
+  - Store :FluxReduceStore
+  - Component
 
-## React stacks
+## React stack
 
 - [React](http://facebook.github.io/react/)
   - React
