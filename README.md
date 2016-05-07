@@ -2,12 +2,15 @@
 
 A non-opinionated project generator for React and Flux.
 
-- Provide well and simply configured React/Flux development environment.
-- Keep the project clean. This generator doesn't leave own traces in the generated project.
+- Setup well and simply configured React/Flux development environment.
 - Facebook's official React toolchains are adopted.
 - Generate test scaffolds for Jest from your React components.
+- Generate scaffolds for Flux 
+  - Dispatcher
+  - Action (Action Creator)
+  - Store (ReduceStore of Flux)
 
-## React stack
+## React stacks
 
 - [React](http://facebook.github.io/react/)
   - React
@@ -43,10 +46,12 @@ npm run lint                  // ESLint
 npm run build                 // Build for production
 ```
 
-## Directory structure of the generated project
+## Directory structure
 
 ```
 .
+├── .babelrc
+├── .eslintrc
 ├── __tests__
 ├── app
 │   ├── App.js
@@ -57,13 +62,10 @@ npm run build                 // Build for production
 ├── node_modules
 ├── package.json
 ├── public
-├── package.json
-├── public
 │   ├── css
 │   ├── img
 │   ├── index.html
 │   └── js
-├── setup.js
 └── webpack.config.js
 ```
 
