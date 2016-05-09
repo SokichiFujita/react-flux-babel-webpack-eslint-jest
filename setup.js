@@ -7,6 +7,7 @@ const dirs = [
   //Flux
   './app',
   './app/actions',
+  './app/constants',
   './app/components',
   './app/dispatcher',
   './app/stores',
@@ -184,6 +185,7 @@ export default new AppDispatcher();
 
 const actionCreatorsJS =
 `import AppDispatcher from '../dispatcher/AppDispatcher';
+import { ActionTypes } from '../constants/AppConstants';
 
 const ActionCreators = {
 
@@ -192,14 +194,14 @@ const ActionCreators = {
     // Do something and pass the result to the data in the dispatch.
     //
     AppDispatcher.dispatch({
-      type: 'ACTION_TYPE_001',
+      type: ActionTypes.TYPE_001,
       data: 'RESULT OF YOUT ACTION',
     });
   },
 
   action002(arg1) {
     AppDispatcher.dispatch({
-      type: 'ACTION_TYPE_002',
+      type: ActionTypes.TYPE_002,
       data: 'RESULT OF YOUT ACTION',
     });
   },
@@ -207,6 +209,13 @@ const ActionCreators = {
 };
 
 export default ActionCreators;
+`;
+
+const appConstantsJS =
+`export const ActionTypes = {
+  TYPE_001: 'type-001',
+  TYPE_002: 'type-002',
+};
 `;
 
   createFile(`./app/actions/ActionCreators.js`, code);
@@ -312,6 +321,7 @@ function setupReact() {
   createFile('webpack.config.js', webpackConfig);
   createFile('./app/App.js', appJS);
   createFile('./app/dispatcher/AppDispatcher.js', appDispatcherJS);
+  createFile('./app/constants/AppConstants.js', appConstantsJS);
   createFile('./app/actions/ActionCreators.js', actionCreatorsJS);
   createFile('./app/components/Sample.js', componentSample);
   createFile('./__tests__/Sample-test.js', sampleTest);
@@ -355,6 +365,7 @@ function generateStoreFile(name) {
 
 const code =
 `import { ReduceStore } from 'flux/utils';
+import { ActionTypes } from '../constants/AppConstants';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import Immutable from 'immutable';
 
@@ -365,7 +376,7 @@ class ${name} extends ReduceStore {
 
   reduce(state, action) {
     switch (action.type) {
-      case 'ACTION_TYPE_001':
+      case ActionTypes.TYPE_001:
         return state;
       default:
         return state;
