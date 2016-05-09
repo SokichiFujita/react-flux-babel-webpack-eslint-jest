@@ -218,9 +218,6 @@ const appConstantsJS =
 };
 `;
 
-  createFile(`./app/actions/ActionCreators.js`, code);
-
-
 const componentSample =
 `import React from 'react';
 
