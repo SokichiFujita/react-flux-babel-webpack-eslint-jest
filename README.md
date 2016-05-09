@@ -13,7 +13,7 @@ A non-opinionated project generator for React and Flux.
 
 ## React stack
 
-- [React](http://facebook.github.io/react/)
+- [React.js](http://facebook.github.io/react/)
   - React
   - react-dom
   - react-addons-test-utils
@@ -22,6 +22,7 @@ A non-opinionated project generator for React and Flux.
 - [Flux](https://facebook.github.io/flux/)
   - [flux/utils](https://facebook.github.io/flux/docs/flux-utils.html)
 - [Jest](https://facebook.github.io/jest/)
+- [Immutable.js](https://facebook.github.io/immutable-js/)
 - [Webpack](https://webpack.github.io), [Webpack-dev-server](https://webpack.github.io/docs/webpack-dev-server.html)
 - [Babel](https://babeljs.io)
 - [ESLint](http://eslint.org)
@@ -72,11 +73,12 @@ npm run build                 // Build for production
 
 ## Todo
 
-- Support for global npm command to make installation easier. (`npm install -g`)
-- Add more good toolchains. (e.g. Facebook's Immutable.js)
-- [Under review] Add 3rd-party libraries (e.g. Material-UI, React-router)
-- Add tests for the generator.
-- Refactoring.
+- [ ] Support for global npm command to make installation easier. (`npm install -g`)
+- [x] Add more good toolchains. (e.g. Facebook's Immutable.js)
+- [ ] Add 3rd-party libraries (e.g. Material-UI, React-router)
+- [ ] Add tests for the generator.
+- [ ] Generate tests for stores and actions.
+- [ ] Refactoring.
 
 ## License
 
