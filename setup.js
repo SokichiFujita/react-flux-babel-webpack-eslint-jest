@@ -27,7 +27,7 @@ const npms = [
   'npm install --save-dev babel-preset-es2015',
   'npm install --save-dev babel-preset-react',
 
-  //React
+  //React.js
   'npm install --save-dev react',
   'npm install --save-dev react-dom',
   'npm install --save-dev react-addons-css-transition-group',
@@ -37,6 +37,9 @@ const npms = [
   //Flux
   'npm install --save-dev flux',
 
+  //Immutable.js
+  'npm install --save-dev immutable',
+  
   //Jest
   'npm install --save-dev jest-cli',
   'npm install --save-dev babel-jest',
@@ -353,6 +356,7 @@ function generateStoreFile(name) {
 const code =
 `import { ReduceStore } from 'flux/utils';
 import AppDispatcher from '../dispatcher/AppDispatcher';
+import Immutable from 'immutable';
 
 class ${name} extends ReduceStore {
   getInitialState() {
