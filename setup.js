@@ -8,7 +8,7 @@ const dirs = [
   './app',
   './app/actions',
   './app/components',
-  './app/dispatchers',
+  './app/dispatcher',
   './app/stores',
 
   //Build
@@ -180,7 +180,7 @@ export default new AppDispatcher();
 `;
 
 const actionCreatorsJS =
-`import AppDispatcher from '../dispatchers/AppDispatcher';
+`import AppDispatcher from '../dispatcher/AppDispatcher';
 
 const ActionCreators = {
 
@@ -308,7 +308,7 @@ function setupReact() {
   createFile('./public/css/style.css', '');
   createFile('webpack.config.js', webpackConfig);
   createFile('./app/App.js', appJS);
-  createFile('./app/dispatchers/AppDispatcher.js', appDispatcherJS);
+  createFile('./app/dispatcher/AppDispatcher.js', appDispatcherJS);
   createFile('./app/actions/ActionCreators.js', actionCreatorsJS);
   createFile('./app/components/Sample.js', componentSample);
   createFile('./__tests__/Sample-test.js', sampleTest);
@@ -352,7 +352,7 @@ function generateStoreFile(name) {
 
 const code =
 `import { ReduceStore } from 'flux/utils';
-import AppDispatcher from '../dispatchers/AppDispatcher';
+import AppDispatcher from '../dispatcher/AppDispatcher';
 
 class ${name} extends ReduceStore {
   getInitialState() {

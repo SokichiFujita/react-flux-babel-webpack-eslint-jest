@@ -58,7 +58,7 @@ npm run build                 // Build for production
 │   ├── App.js
 │   ├── actions
 │   ├── components
-│   ├── dispatchers
+│   ├── dispatcher
 │   └── stores
 ├── node_modules
 ├── package.json
