@@ -11,6 +11,7 @@ const dirs = [
   './app/components',
   './app/dispatcher',
   './app/stores',
+  './app/utils',
 
   //Build
   './public',
