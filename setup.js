@@ -184,34 +184,6 @@ class AppDispatcher extends Dispatcher {
 export default new AppDispatcher();
 `;
 
-const actionCreatorsJS =
-`import AppDispatcher from '../dispatcher/AppDispatcher';
-import { ActionTypes } from '../constants/AppConstants';
-
-const ActionCreators = {
-
-  action001(arg1) {
-    //
-    // Do something and pass the result to the data in the dispatch.
-    //
-    AppDispatcher.dispatch({
-      type: ActionTypes.TYPE_001,
-      data: 'RESULT OF YOUT ACTION',
-    });
-  },
-
-  action002(arg1) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.TYPE_002,
-      data: 'RESULT OF YOUT ACTION',
-    });
-  },
-
-};
-
-export default ActionCreators;
-`;
-
 const appConstantsJS =
 `export const ActionTypes = {
   TYPE_001: 'type-001',
@@ -260,7 +232,7 @@ describe('<Sample />', () => {
 main();
 
 function main() {
-  console.log('*** React Project Generator ***');
+  console.log('*** React Flux StarterProject Generator ***');
   const args = process.argv;
   switch (args.length) {
     case 3:
@@ -283,6 +255,9 @@ function main() {
       if (args[2] == 'generate' && args[3] == 'store') {
         generateStoreFile(args[4]);
         showComplete();
+      } else if (args[2] == 'generate' && args[3] == 'action') {
+        generateActionFile(args[4]);
+        showComplete();
       } else {
         showUsage();
       }
@@ -295,9 +270,10 @@ function main() {
 
 function showUsage() {
   console.log('Usage:');
-  console.log('node setup init                        : Setup a react project.');
-  console.log('node setup generate test               : Generate tests from components');
-  console.log('node setup generate store [StoreName]  : Generate a store file.');
+  console.log('node setup init                             : Setup a react project.');
+  console.log('node setup generate test                    : Generate tests of components.');
+  console.log('node setup generate store  [Store]          : Generate the Store. ');
+  console.log('node setup generate action [ActionCreators] : Generate the ActionCreators.');
   process.exit(-1);
 }
 
@@ -387,6 +363,48 @@ export default new ${name}(AppDispatcher);
 
   createFile(`./app/stores/${name}.js`, code);
 }
+
+
+function generateActionFile(name) {
+
+const code =
+`import AppDispatcher from '../dispatcher/AppDispatcher';
+import { ActionTypes } from '../constants/AppConstants';
+
+const ${name}ActionCreators = {
+
+  action001(arg1) {
+    //
+    // Do something and pass the result to the data in the dispatch.
+    //
+    AppDispatcher.dispatch({
+      type: ActionTypes.TYPE_001,
+      data: 'RESULT OF YOUT ACTION',
+    });
+  },
+
+  action002(arg1) {
+    AppDispatcher.dispatch({
+      type: ActionTypes.TYPE_002,
+      data: 'RESULT OF YOUT ACTION',
+    });
+  },
+
+};
+
+export default ${name}ActionCreators;
+`;
+
+  createFile(`./app/actions/${name}ActionCreators.js`, code);
+}
+
+
+
+
+
+
+
+
 
 function getFileNames(dir) {
   if (fs.existsSync(dir)) { 
