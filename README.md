@@ -1,3 +1,7 @@
+# !!! Check the New Repository !!!
+
+This repository was moved to [starter-react-flux](https://github.com/SokichiFujita/starter-react-flux). Check the new repository!
+
 # react-flux-babel-webpack-eslint-jest
 
 A non-opinionated project generator for React and Flux.
